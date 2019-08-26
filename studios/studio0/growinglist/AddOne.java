@@ -12,7 +12,7 @@ public class AddOne extends Rarrays {
 	 */
 	@Override
 	public int getNewSize() {
-		return array.length + 1;
+		return array.length + 2;
 		
 	}
 	
