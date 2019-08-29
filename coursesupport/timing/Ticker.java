@@ -13,7 +13,6 @@ final public class Ticker {
 	public Ticker() {
 		this.tickCount = 0L;
 	}
-	
 	/**
 	 * Log one more operation on behalf of the implementation.
 	 */
