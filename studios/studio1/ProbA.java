@@ -34,7 +34,7 @@ public class ProbA extends QuietAlgorithm {
 		while (j < n) {
 			int k = n;
 			//
-			// Here
+			// n-1
 			ticker.tick();
 			//				
 			while (k > j) {

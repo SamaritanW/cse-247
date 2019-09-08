@@ -35,7 +35,7 @@ public class ProbE extends QuietAlgorithm {
 			int k = 1;
 			while (k < j*j) {  // This line differs from Prob D
 				//
-				// Here
+				// (n(n+1)(2n+1)/6)+n
 				ticker.tick();
 				//				
 				k = k + 1;
