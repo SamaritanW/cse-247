@@ -66,5 +66,9 @@ public class FromLecture extends QuietAlgorithm {
 // 2. an+b=O(n^2) c=1 n0=a+sqrt(a^2-4b)/2) 
 //question D1
 // 1. NO
-// 2. NO
+// 2. NO opposite
+//disapprove growth rate 
 // question E1
+
+
+//
