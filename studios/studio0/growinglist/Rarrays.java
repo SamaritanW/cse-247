@@ -1,5 +1,7 @@
 package studio0.growinglist;
 
+import java.util.Arrays;
+
 import timing.Ticker;
 import timing.quiet.QuietAlgorithm;
 
@@ -62,15 +64,19 @@ abstract public class Rarrays extends QuietAlgorithm {
 		//
 		int newSize = getNewSize();
 		//
+		int intArray[];    //declaring array
+		intArray = new int[newSize];
 		//  Make a new array of the new size
 		//       This should be a local variable, not an instance variable
 		// 
-		int array[] ;
 		
+		ticker.tick();
 		//  tick appropriately to account for Java initializing
 		//    the elements of this new array to 0
 		//
-		
+		int[] newarray;
+		newarray = Arrays.copyOf(intArray, intArray.length + 1);
+		ticker.tick();
 		//
 		//  Copy the elements of the current array to the new one
 		//    tick appropriately to account for each copied element

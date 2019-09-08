@@ -10,7 +10,7 @@ import timing.utils.IntArrayGenerator;
 public class ProbB extends QuietAlgorithm {
 
 	protected Ticker ticker;
-	protected long   sum;
+	protected long   sum;  
 
 	public ProbB() {
 
