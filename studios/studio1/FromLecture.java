@@ -57,3 +57,14 @@ public class FromLecture extends QuietAlgorithm {
 	}
 
 }
+// question B1:
+//1. c=1, n0=2
+//2. c=500, n0=2
+//3. c=1, n0=2
+// question C1
+// 1. 500O= O（n^2） c=1 n0= 75 
+// 2. an+b=O(n^2) c=1 n0=a+sqrt(a^2-4b)/2) 
+//question D1
+// 1. NO
+// 2. NO
+// question E1
