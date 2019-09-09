@@ -68,7 +68,9 @@ public class FromLecture extends QuietAlgorithm {
 // 1. NO
 // 2. NO opposite
 //disapprove growth rate 
+// n^2+42n+7= O(n)   c= 50 n =1 
 // question E1
+//
 
 
 //
