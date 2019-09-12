@@ -12,6 +12,7 @@ import timing.Ticker;
 public class LinkedListWithTail<T> implements List<T> {
 	
 	private ListNode<T> head;
+	private ListNode<T> tail;
 	private Ticker ticker;
 	
 	public LinkedListWithTail(Ticker ticker) {
@@ -39,18 +40,20 @@ public class LinkedListWithTail<T> implements List<T> {
 		else {
 			ListNode<T> q = new ListNode<T>();
 			q.value = thing;
+			tail.next = q;
+			tail = q;
 			// search for the end of the list -- modify this
 			// code to use (and maintain) the tail pointer!
 			//
-			ListNode<T> p = head;
-			while (p.next != null) {
-				p = p.next;
-				ticker.tick(2);
-			}
-			ticker.tick(1); // for the last test in the "while" loop
+			//ListNode<T> p = head;
+			//while (p.next != null) {
+			//	p = p.next;
+			//	ticker.tick(2);
+			//}
+			//ticker.tick(1); // for the last test in the "while" loop
 			
-			p.next = q;
-			ticker.tick(4);  // for the 4 statements not part of the "while" loop
+			//p.next = q;
+			//ticker.tick(4);  // for the 4 statements not part of the "while" loop
 		}
 		ticker.tick(1); // for outermost "if" test
 	}
