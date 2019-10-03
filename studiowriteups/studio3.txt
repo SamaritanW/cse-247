@@ -14,7 +14,8 @@ Students in your studio group:
 Below each question, type in your short, to-the-point answers.
 
 Question A1:
-
+list array
+non-numeric: location, boolean
 Question A2:
 
 Question A3:

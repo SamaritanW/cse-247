@@ -64,7 +64,9 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		// You have to now put ans into the heap array
 		//   Recall in class we reduced insert to decrease
 		//
-		// FIXME
+		array[size] = ans;
+		decrease(size);
+		ticker.tick(5);
 		//
 		return ans;
 	}
@@ -98,8 +100,26 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 	void decrease(int loc) {
 		//
 		// As described in lecture
-		//
+		if(loc<=1) {
+			ticker.tick(1);
+			return;
+		}
+		T child = array[loc].getValue();
+		T parent = array[loc/2].getValue();
+		if(child.compareTo(parent)<0) {
+			moveItem(loc,loc/2);
+			decrease(loc/2);
+			ticker.tick(3);
+		}
 		
+	}
+	void moveItem(int from, int to) {
+		Decreaser<T> temp = array[from];
+		array[from] = array[to];
+		array[to] = temp;
+		array[from].loc = from;
+		array[to].loc = to;
+		ticker.tick(6);
 	}
 	
 	/**
@@ -119,6 +139,12 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		//
 		// FIXME
 		//
+		array[1]=array[size];
+		array[1].loc =1;
+		array[size]=null;
+		size-=1;
+		heapify(1);
+		ticker.tick(8);
 		return ans;
 	}
 
@@ -134,6 +160,41 @@ public class MinHeap<T extends Comparable<T>> implements PriorityQueue<T> {
 		// As described in lecture
 		//  FIXME
 		//
+		int left = where*2;
+		int right = left+1;
+		T father,leftChild,rightChild;
+		if(right<=size) {
+			father=array[where].getValue();
+			leftChild=array[left].getValue();
+			rightChild=array[right].getValue();
+			ticker.tick(4);
+			if(leftChild.compareTo(father)>0 && rightChild.compareTo(father)>0){
+				ticker.tick(2);
+				return;
+			}
+			if(leftChild.compareTo(rightChild)<0){
+				moveItem(left, where);
+				heapify(left);
+				ticker.tick(3);
+			}else{
+				moveItem(right, where);
+				heapify(right);
+				ticker.tick(2);
+			}
+		 }else if(left<=size){
+			  father=array[where].getValue();
+			  leftChild=array[left].getValue();
+			  ticker.tick(3);
+			  //System.out.println("left="+left+" where="+where);
+			  //System.out.println("leftChild="+leftChild+" father="+father);
+			  if(leftChild.compareTo(father)<0){
+					moveItem(left, where);
+					heapify(left);
+					ticker.tick(3);
+				}
+		  }
+		
+		
 	}
 	
 	/**
