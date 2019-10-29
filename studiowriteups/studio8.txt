@@ -14,9 +14,10 @@ Students in your studio group:
 Below each question, type in your short, to-the-point answers.
 
 Question A1:
-
+duplicates
+memory address random number
 Question A2:
-
+same x same y 
 Question A3:
 
 Question A4:

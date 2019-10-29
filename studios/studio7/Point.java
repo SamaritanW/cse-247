@@ -1,5 +1,7 @@
 package studio7;
 
+import java.util.Objects;
+
 public class Point {
 
 	public int x;
@@ -10,10 +12,12 @@ public class Point {
 		this.y = y;
 	}
 
-    // @Override
-	// public int hashCode() {
-	// compute a hashcode here!
-	//}
+    @Override
+	public int hashCode() {
+    	return 13*x+y;
+    	
+    //compute a hashcode here!
+	}
 	
 
 	@Override

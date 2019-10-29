@@ -16,9 +16,7 @@ public class StringTable {
     // number of records currently stored in table --
     // must be maintained by all operations
     //
-    public int size;
-    
-    
+    public int size;    
     //
     // Create an empty table with nBuckets buckets
     //
@@ -27,7 +25,7 @@ public class StringTable {
     {
     	this.nBuckets = nBuckets;
     	buckets = new LinkedList[nBuckets];
-	
+
     	// TODO - fill in the rest of this method to initialize your table
     }
     
@@ -41,10 +39,20 @@ public class StringTable {
      */
     public boolean insert(Record r) 
     {  
+    	//int hash = stringToHashCode(r.key);
+    	
     	// TODO - implement this method
-	
+    	if(find(r.key)==null){
+    	if(buckets[toIndex(stringToHashCode(r.key))]==null) {
+    	      buckets[toIndex(stringToHashCode(r.key))]=new LinkedList<Record>();
+    	     }
+    	buckets[toIndex(stringToHashCode(r.key))].add(r);
+    	++size;
+    	return true;}
+    	else {
     	return false;
     }
+   }
     
     
     /**
@@ -56,9 +64,18 @@ public class StringTable {
     public Record find(String key) 
     {
     	// TODO - implement this method
-	
-    	return null;
+    	LinkedList<Record> record = buckets[toIndex(stringToHashCode(key))];
+    	if(record!=null) {
+    	for(Record r :record) {//loop
+    		if(r.key.equals(key)){
+    		return r;
+
+    	}
     }
+}
+    	
+    	return null;}
+    
     
     
     /**
@@ -69,7 +86,11 @@ public class StringTable {
      */
     public void remove(String key) 
     {
-    	// TODO - implement this method
+    	Record record = find(key);
+    	if(find(key)!=null){
+        	buckets[toIndex(stringToHashCode(key))].remove(record);//remove()
+        	size--;
+        	}
     }
     
 
@@ -89,8 +110,10 @@ public class StringTable {
     private int toIndex(int hashcode)
     {
     	// Fill in your own hash function here
-	
-    	return 0;
+    	int hash = Math.abs(hashcode);
+    	double a = (Math.pow(5.0,0.5)-1.0)/2.0;
+    	int index = (int)(((hash*a)%1.0)*nBuckets);
+    	return index;//return hashcode &(nbuckets-1);
     }
     
     
@@ -107,7 +130,7 @@ public class StringTable {
      */
     int stringToHashCode(String key)
     {
-    	int A = 1952786893;
+    	int A = 1952786893 ;
 	
     	int v = A;
     	for (int j = 0; j < key.length(); j++)
