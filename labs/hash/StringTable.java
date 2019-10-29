@@ -112,7 +112,7 @@ public class StringTable {
     	// Fill in your own hash function here
     	int hash = Math.abs(hashcode);
     	double a = (Math.pow(5.0,0.5)-1.0)/2.0;
-    	int index = (int)(((hash*a)%1.0)*nBuckets);
+    	int index=(int)(((hash*a)-(int) (hash*a))*nBuckets);//int index = (int)(((hash*a)%1.0)*nBuckets);//
     	return index;//return hashcode &(nbuckets-1);
     }
     
