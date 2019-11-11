@@ -1,0 +1,88 @@
+-------------------
+CSE247 Robot tester starts testing hash on 2019-11-11 00:27:25 -0600
+
+========
+Testing in ./GradingRepos/repos/labs-chaow: hash as of 2019-11-02 00:05
+========
+Now in: /home/coles/git/cse247/cse247-support-f19/GradingRepos/repos/labs-chaow
+Your branch is up-to-date with 'origin/master'.
+HEAD is now at 9272feb robograde
+No local changes to save
+
+Updating 9272feb..6ede1d5
+Fast-forward
+ RoboGrade/heaps-test.TestMinHeap.txt |    217 +
+ labs/hash/StringTable.java           |     45 +-
+ labs/hash/output/case1-observed.txt  |     62 +-
+ labs/hash/output/case2-observed.txt  |   3418 +-
+ labs/hash/output/case3-observed.txt  | 324492 +-------------------------------
+ labs/hash/output/case4-observed.txt  | 298148 +----------------------------
+ outputs/studio7paintingcolors.csv    |   5443 +
+ outputs/studio7randomcolors.csv      |   5001 +
+ studios/studio7/HashColors.java      |      2 +-
+ studios/studio7/Point.java           |     12 +-
+ studiowriteups/studio8.txt           |      5 +-
+ 11 files changed, 10821 insertions(+), 626024 deletions(-)
+ create mode 100644 RoboGrade/heaps-test.TestMinHeap.txt
+ create mode 100644 outputs/studio7paintingcolors.csv
+ create mode 100644 outputs/studio7randomcolors.csv
+Going back in time to: 2019-11-02 00:05
+At hash 6ede1d568bdb17def03629cdaccbfd42031ec111
+
+Buildfile: /home/coles/git/cse247/cse247-support-f19/build.xml
+
+copytest:
+     [echo] would copy from /home/coles/git/cse247/cse247-f19-graders/ key chaow testfilesource test/TestStringTableBasic package hash repo ./GradingRepos/repos/labs-chaow
+     [copy] Copying 1 file to /home/coles/git/cse247/cse247-support-f19/GradingRepos/repos/labs-chaow/labs/hash/test
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+Buildfile: /home/coles/git/cse247/cse247-support-f19/build.xml
+
+copytest:
+     [echo] would copy from /home/coles/git/cse247/cse247-f19-graders/ key chaow testfilesource SeqReader package hash repo ./GradingRepos/repos/labs-chaow
+     [copy] Copying 1 file to /home/coles/git/cse247/cse247-support-f19/GradingRepos/repos/labs-chaow/labs/hash
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+Compiling the code
+Buildfile: /home/coles/git/cse247/cse247-support-f19/build.xml
+
+compile:
+     [echo] Compiling hash/StringTable
+    [javac] Compiling 1 source file to /home/coles/git/cse247/cse247-support-f19/GradingRepos/repos/labs-chaow/bin
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+Buildfile: /home/coles/git/cse247/cse247-support-f19/build.xml
+
+compile:
+     [echo] Compiling hash/test/TestStringTableBasic
+    [javac] Compiling 1 source file to /home/coles/git/cse247/cse247-support-f19/GradingRepos/repos/labs-chaow/bin
+
+BUILD SUCCESSFUL
+Total time: 1 second
+Running test test.TestStringTableBasic
+Buildfile: /home/coles/git/cse247/cse247-support-f19/build.xml
+
+test:
+    [junit] Running hash.test.TestStringTableBasic
+    [junit] Testsuite: hash.test.TestStringTableBasic
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.19 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.19 sec
+    [junit] 
+    [junit] Testcase: testFind took 0.093 sec
+    [junit] Testcase: testInit took 0.001 sec
+    [junit] Testcase: testDelete took 0.019 sec
+    [junit] Testcase: testZeroHash took 0.007 sec
+    [junit] Testcase: testInsert took 0.003 sec
+
+BUILD SUCCESSFUL
+Total time: 2 seconds
+
+================
+Lab is counted as working
+================
+
+CSE247 Robot tester ends testing hash on 2019-11-11 00:27:33 -0600
+-------------------
