@@ -30,19 +30,19 @@ public class AVLTree<T extends Comparable<T>> {
 	// RETURNS: true if the value is found, else false
 	//
 	private boolean existsHelper(T value, TreeNode<T> root) {
-		if (root == null) { // not found
-			return false;
-	    } else {
-	    	int comparison = value.compareTo(root.value);
+			if (root == null) { // not found
+				return false;
+			} else {
+					int comparison = value.compareTo(root.value);
 		
-	    	if (comparison == 0) { // found
-	    		return true;
-	    	} else if (comparison < 0) { // still looking - go left
-	    		return existsHelper(value, root.left);
-	    	} else { // still looking - go right
-	    		return existsHelper(value, root.right);
-	    	}
-	    }
+					if (comparison == 0) { // found
+							return true;
+					} else if (comparison < 0) { // still looking - go left
+							return existsHelper(value, root.left);
+					} else { // still looking - go right
+							return existsHelper(value, root.right);
+					}
+			}
 	}
 	
 	////////////////////////////////////////////////////////
@@ -125,28 +125,29 @@ public class AVLTree<T extends Comparable<T>> {
 	// a node is removed.
 	//
 	private TreeNode<T> insertHelper(T value,
-					 TreeNode<T> root) {
+					 TreeNode<T> root) 
+	{
 		if (root == null) {
 			// add new element as leaf of tree
-			TreeNode<T> newNode = new TreeNode<T>(value); 
+			TreeNode<T> newNode = new TreeNode<T>(value);
+			newNode.height = 1;
 			size++;
 			return newNode;
-	    } else {
-	    	int comparison = value.compareTo(root.value);
-		
-	    	if (comparison == 0) {
-	    		// duplicate element -- return existing node
-	    		return root;
-	    	} else if (comparison < 0) {
-	    		// still looking -- go left
-	    		root.setLeft(insertHelper(value, root.left));
-	    	} else {
-	    		// still looking -- go right
-	    		root.setRight(insertHelper(value, root.right));
-	    	}
-	    
-	    	return root;
-	    }
+		} else {
+			int comparison = value.compareTo(root.value);
+			if (comparison == 0) {
+				// duplicate element -- return existing node
+				return root;
+			} else if (comparison < 0) {
+				// go left
+				root.setLeft(insertHelper(value, root.left));
+				return rebalance(root);
+			} else {
+				// go right
+				root.setRight(insertHelper(value, root.right));
+				return rebalance(root);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////
@@ -172,38 +173,33 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	private TreeNode<T> removeHelper(T value,
 					 TreeNode<T> root) {
-	    
-	    if (root == null) { // did not find element
-	    	return null;
-	    } else {
-	    	int comparison = value.compareTo(root.value);
-		
-	    	if (comparison == 0) { // found element to remove
-	    		if (root.left == null || root.right == null) {
-	    			// base case -- root has at most one subtree,
-	    			// so return whichever one is not null (or null
-	    			// if both are)
-	    			size--;
-	    			return (root.left == null ? root.right : root.left);
-	    		} else {
-	    			// node with two subtrees -- replace key
-	    			// with successor and recursively remove
-	    			// the successor.
-	    			T minValue = minValueInSubtree(root.right);
-	    			root.value = minValue;
-			
-	    			root.setRight(removeHelper(minValue, root.right));
-	    		}
-	    	} else if (comparison < 0) {
-	    		// still looking for element to remove -- go left
-	    		root.setLeft(removeHelper(value, root.left));
-	    	} else {
-	    		// still looking for element to remove -- go right
-	    		root.setRight(removeHelper(value, root.right));
-	    	}
-	    	
-	    	return root;
-	    }
+		if (root == null) { // did not find element
+			return null;
+		} else {
+			int comparison = value.compareTo(root.value);
+
+			if (comparison == 0) { //remove the value
+				if (root.left == null || root.right == null) {
+					size--;
+					return (root.left == null ? root.right : root.left);//return left or right is one of them is null
+				} else {
+					// node with two subtrees -- replace key
+					// with successor and recursively remove
+					// the successor.
+					T minValue = minValueInSubtree(root.right);//the leftmost node in right subtree
+					root.value = minValue;
+					root.setRight(removeHelper(minValue, root.right));
+				}
+			} else if (comparison < 0) {
+				// go left
+				root.setLeft(removeHelper(value, root.left));
+			} else {
+				//go right
+				root.setRight(removeHelper(value, root.right));
+			}
+
+			return rebalance(root); 
+		}
 	}
 
 	
@@ -214,15 +210,27 @@ public class AVLTree<T extends Comparable<T>> {
 	
 	// updateHeight()
 	//
-	// Recompute the height of the subtree rooted at "root",
-	// assuming that its left and right children (if any)
-	// have correct heights for their respective subtrees.
-	//
-	// EFFECT: Set the root's height field to the updated value
+		// Recompute the height of the subtree rooted at "root",
+		// assuming that its left and right children (if any)
+		// have correct heights for their respective subtrees.
+		//
+		// EFFECT: Set the root's height field to the updated value
 	//
 	private void updateHeight(TreeNode<T> root) {
 	    // FIXME: fill in the update code
-	}
+		int height = 0;
+
+		if (root.left == null && root.right == null)
+			height = 0;
+		else if (root.left == null)
+			height = root.right.height;
+		else if (root.right == null)
+			height = root.left.height;
+		else
+			height = Math.max(root.left.height, root.right.height);
+
+		root.height = height + 1;//maybe not height but depth
+		}
 
 	//
 	// getBalance()
@@ -231,7 +239,16 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	private int getBalance(TreeNode<T> root) {
 	    // FIXME: fill in the balance computation
-	    return 0;
+		int rightHeight = 0;
+		int leftHeight = 0;
+		
+		if (root.left != null) {
+			leftHeight = root.left.height;
+		}
+		if (root.right != null) {
+			rightHeight = root.right.height;//why we can use right.height here
+		}
+		return (rightHeight - leftHeight); // balance factor
 	}
 
 	//
@@ -244,7 +261,19 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	private TreeNode<T> rebalance(TreeNode<T> root) {
 	    // FIXME: fill in the rebalancing code
-	    return null;
+		updateHeight(root);
+
+		if (getBalance(root) >= 2) {
+			if (getBalance(root.right) <= 0)
+				root.setRight(rightRotate(root.right));
+			return leftRotate(root);
+		} else if (getBalance(root) <= -2) {
+			if (getBalance(root.left) >= 0)
+				root.setLeft(leftRotate(root.left));
+			return rightRotate(root);
+		} else {
+			return root;
+		}
 	}
 	
 	//
@@ -256,7 +285,14 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	private TreeNode<T> rightRotate(TreeNode<T> root) {
 	    // FIXME: fill in the rotation code
-	    return null;
+		TreeNode<T> rootLeftChild = root.left;
+		root.left = rootLeftChild.right; 
+		rootLeftChild.right = root;
+
+		updateHeight(root);
+		updateHeight(rootLeftChild);
+
+		return rootLeftChild;
 	}
 
 	//
@@ -268,7 +304,14 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	private TreeNode<T> leftRotate(TreeNode<T> root) {
 	    // FIXME: fill in the rotation code
-	    return null;
+		TreeNode<T> rootRightChild = root.right;
+		root.right = rootRightChild.left;
+		rootRightChild.left = root;
+
+		updateHeight(root);
+		updateHeight(rootRightChild);
+
+		return rootRightChild;
 	}
 	
 	/////////////////////////////////////////////////////////////
