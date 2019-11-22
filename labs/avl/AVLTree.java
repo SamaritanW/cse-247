@@ -283,14 +283,14 @@ public class AVLTree<T extends Comparable<T>> {
 	//
 	// RETURNS: the new root after rotation.
 	//
-	private TreeNode<T> rightRotate(TreeNode<T> root) {
+	private TreeNode<T> rightRotate(TreeNode<T> root) {//we don't need to rebalance here!
 	    // FIXME: fill in the rotation code
-		TreeNode<T> rootLeftChild = root.left;
-		root.left = rootLeftChild.right; 
-		rootLeftChild.right = root;
-
-		updateHeight(root);
-		updateHeight(rootLeftChild);
+		TreeNode<T> rootLeftChild = root.left;// put left subtree to a tree node called rootleftchild
+		root.left = rootLeftChild.right; // the rightmost node of left subtree value is given to the left most tree
+		rootLeftChild.right = root;// the root value is given to right subtree(one node) of the root left child
+		// need a graph 
+		updateHeight(root);// will be smaller
+		updateHeight(rootLeftChild);// the same
 
 		return rootLeftChild;
 	}
