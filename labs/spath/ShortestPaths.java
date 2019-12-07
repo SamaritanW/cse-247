@@ -33,6 +33,7 @@ public class ShortestPaths {
     private HashMap<Edge, Integer> weights;	
     
     // starting vertex for shortest path computation
+    
     private Vertex startVertex;
     
     // map from vertices to their handles into the priority queue
@@ -99,9 +100,28 @@ public class ShortestPaths {
     	// Implement the main loop of Dijkstra's shortest-path algorithm,
     	// recording the parent edges of each vertex in parentEdges.
     	// FIXME
+    	while (!pq.isEmpty()) {
+			VertexAndDist currentMin = pq.extractMin();//create a VD object and store in it the current minimum value in the priory queue 
+			int minDistance = currentMin.distance;//the distance, d[currentMin]
+			Vertex currentVertex = currentMin.vertex;// specify the VD object vertex
+
+			for (Edge e : currentVertex.edgesFrom()) { // for every edges e from current vertex to any connected vertexes
+				Decreaser<VertexAndDist> toVertex = handles.get(e.to); // get the handle to the vertex from the heap into priority queue
+				int newDistance = minDistance + weights.get(e);// d[currentMin] + w[currentmMin, e] =? d[v], v is the new vertex
+				if (newDistance < toVertex.getValue().distance) {//  d[currentMin] + w[curenttMin,e] < d[e]
+					
+					Vertex v = toVertex.getValue().vertex;// handle'vertex value to a new vertex v
+					VertexAndDist updatedDistance = new VertexAndDist(v, newDistance); //create a new VD wth v and new distance
+					toVertex.decrease(updatedDistance); 
+					parentEdges.put(e.to, e);
+
+				}
+
+			}
+
+		}
     	//
     }
-    
     
     //
     // returnPath()
@@ -116,6 +136,9 @@ public class ShortestPaths {
     	//
     	// FIXME: implement this using the parent edges computed in run()
     	//
+    	for (Vertex x = endVertex; x != startVertex; x = parentEdges.get(x).from) {
+			path.addFirst(parentEdges.get(x));
+		}
 	
     	return path;
     }
